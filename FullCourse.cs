@@ -1,1 +1,1 @@
-C# Intermediate: Classes, Interfaces and OOP
+Section 1 Lec 2-6(Intro)
