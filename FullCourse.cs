@@ -13,13 +13,19 @@ namespace test
         {
             Console.WriteLine("Hi {0}, I am {1}" , to , Name);
         }
+        public static Person Parse(string str)
+        {
+            var person = new Person();
+            person.Name = str;
+            return person;
+        }
     }
     class Program
     {
         public static void Main()
         {
-            var person = new Person();
-            person.Name = "Salman";
+
+            var person = Person.Parse("Salman");
             person.Introduce("Mimi");
             Console.ReadLine();
         }
