@@ -5,28 +5,32 @@ using System.Text;
 
 namespace test
 {
-    public class Person
+    public class Order
     {
-        public string Name;
 
-        public void Introduce(string to)
+    }
+    public class Customer
+    {
+        public int Id;
+        public string Name;
+        public Customer(int id)
         {
-            Console.WriteLine("Hi {0}, I am {1}" , to , Name);
+            this.Id = id;
         }
-        public static Person Parse(string str)
+        public Customer(int id, string name)
         {
-            var person = new Person();
-            person.Name = str;
-            return person;
+            this.Id = id;
+            this.Name = name;
         }
+       
     }
     class Program
     {
         public static void Main()
         {
-
-            var person = Person.Parse("Salman");
-            person.Introduce("Mimi");
+            var custumor = new Customer(1,"salman");
+            Console.WriteLine(custumor.Id);
+            Console.WriteLine(custumor.Name);
             Console.ReadLine();
         }
      
