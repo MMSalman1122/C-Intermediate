@@ -5,32 +5,27 @@ using System.Text;
 
 namespace test
 {
-    public class Customer
+    public class Person
     {
-        public int Id;
-        public string Name;
-        public readonly List<Oreder> Orders= new List<Oreder>();// initialize empty list once only
+        private DateTime _birthdate;
 
-        
-        public Customer(int id)
+        public void SetBirthdate(DateTime birthdate)
         {
-            this.Id = Id;
+            _birthdate = birthdate;
         }
-        public Customer(int id, string name)
-            :this(id)
+        public DateTime GetBirthdate()
         {
-            this.Name = name;
+            return _birthdate;
         }
     }
-    public class Oreder
-    {
-
-    }
+    
     class Program
     {
         public static void Main()
         {
-            
+            var person = new Person();
+            person.SetBirthdate(new DateTime(1982,1,1));
+            Console.WriteLine(person.GetBirthdate());
             Console.ReadLine();
         }
      
