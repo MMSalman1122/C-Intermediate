@@ -5,38 +5,52 @@ using System.Text;
 
 namespace test
 {
-   public class PresentationObject
+    public class Logger
     {
-        public int width { get; set; }
-        public int height { get; set; }
-
-        public void Copy()
+        public void log(string message)
         {
-            Console.WriteLine("Object is copied to clipbord");
-        }
-        public void Duplicate()
-        {
-            Console.WriteLine("Object was duplicated");
+            Console.WriteLine(message);
         }
     }
-    public class Text: PresentationObject
+    public class DbMigrator
     {
-        public int FontSize { get; set; }
-        public string FontName { get; set; }
+        private readonly Logger _logger;
 
-        public void AddHyperlink(string url)
+        public DbMigrator(Logger logger)
         {
-            Console.WriteLine("We added a link to "+ url);
+            _logger = logger;
+        }
+
+        public void Migrate()
+        {
+            _logger.log("We are migrating");
         }
     }
-  
+
+    public class Installer
+    {
+        private Logger _logger;
+        public Installer(Logger logger)
+        {
+            _logger = logger;
+        }
+        public void Install()
+        {
+            _logger.log("Installing");
+        }
+    }
     class Program
     {
         public static void Main()
         {
-            var text = new Text();
-            text.width = 100;
-            text.Copy();
+            var dbMigrator = new DbMigrator(new Logger());
+
+
+            var logger = new Logger();
+            var installer = new Installer(logger);
+
+            dbMigrator.Migrate();
+            installer.Install();
           
             Console.ReadLine();
         }
