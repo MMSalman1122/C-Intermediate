@@ -1,1 +1,1 @@
-Section 2 complete (Without Exercise)
+Section 3 Lecture 17 (Class coupling)
