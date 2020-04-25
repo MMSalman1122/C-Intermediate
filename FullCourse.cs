@@ -1,1 +1,1 @@
-Section 2 lecture 14 complete
+Section 2 complete (Without Exercise)
