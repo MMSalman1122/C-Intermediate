@@ -4,124 +4,147 @@ using System.IO;
 using System.Text;
 
 namespace test
+        
 {
-    public class Task1
+   
+    class Program
     {
-        public int count;
-        public Task1()
+        public static void Task2()
         {
-            count = 0;
+            Console.WriteLine("Enter the number separated by'-'");
+            var input = Console.ReadLine();
+            if(string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("No input");
+                return;
+            }
+            
+
+            var uniques = new List<Int32>();
+            bool IsDuplicate = false;
+            foreach( var number in input.Split('-'))
+            {
+                if (!uniques.Contains(Convert.ToInt32(number)))
+                {
+                    uniques.Add(Convert.ToInt32(number));
+                }
+                else
+                {
+                    IsDuplicate = true;
+                }
+            }
+            if(IsDuplicate)
+            {
+                Console.WriteLine("DUplicates");
+            }
+            else
+            {
+                Console.WriteLine("Uniques");
+            }
 
         }
-
-        public void show()
+        public static void Task3()
         {
-            for (int i = 1; i <= 100; i++)
+            Console.WriteLine("Enter the time");
+            var input = Console.ReadLine();
+            if(string.IsNullOrWhiteSpace(input))
             {
-                if (i % 3 == 0)
+                Console.WriteLine("Invalid Time");
+                return;
+            }
+            var time = input.Split(':');
+            if(time.Length != 2)
+            {
+                Console.WriteLine("Invalid");
+                return;
+            }
+            try
+            {
+                var hours = Convert.ToInt32(time[0]);
+                var minutes = Convert.ToInt32(time[1]);
+                if(hours <=23 && hours>=0 && minutes >= 0 && minutes <= 59)
                 {
-                    count += 1;
+                    Console.WriteLine("Ok");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid");
+                }
+            }
+            catch (Exception)
+            {
+
+                Console.WriteLine("Invalid");
+            }
+
+        }
+        public static void Task4()
+        {
+            Console.WriteLine("Enter words separated by space");
+            var input = Console.ReadLine();
+
+            if(string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("Invalid");
+                return;
+            }
+            var variable = "";
+            foreach(var words in input.Split(' '))
+            {
+                var wordWithPascalCase = char.ToUpper(words[0]) + words.ToLower().Substring(1);
+                variable += wordWithPascalCase;
+            }
+            Console.WriteLine(variable);
+        }
+        public static void Task5()
+        {
+            Console.WriteLine("Enter the word");
+            var word = Console.ReadLine().ToLower();
+            var vowels = new List<char>(new char[] { 'a', 'e', 'i', 'o', 'u' });
+            var count = 0;
+            foreach(var letter in word)
+            {
+                if(vowels.Contains(letter))
+                {
+                    count++;
                 }
             }
             Console.WriteLine(count);
         }
-
-    }
-    public class Task2
-    {
-        public double sum;
-        public Task2()
-        {
-            sum = 0;
-        }
-
-        public void Addr(int newNumber)
-        {
-            sum += newNumber;
-            Console.WriteLine(sum);
-        }
-
-    }
-    public class Task3
-    {
-        public double num;
-        public double factorial;
-
-        public Task3(double num)
-        {
-            this.num = num;
-            this.factorial = 1;
-
-        }
-        public void factorialCal()
-        {
-            for (var i = num; i > 0; i--)
-            {
-                factorial *= i;
-
-            }
-            Console.WriteLine("{0} != {1}", num, factorial);
-        }
-    }
-    public class Task5
-    {
-        public string input;
-        public Task5(string input)
-        {
-            this.input = input;
-        }
-        public void findMax()
-        {
-            var numbers = input.Split(',');
-            var max = Convert.ToInt32(numbers[0]);
-            foreach (var str in numbers)
-            {
-                var number = Convert.ToInt32(str);
-                if (number > max)
-                {
-                    max = number;
-                }
-            }
-            Console.WriteLine("Max is " + max);
-
-        }
-    }
-    class Program
-    {
         public static void Main()
-        {
-            var task1 = new Task1();
-            task1.show();
+        {   
+            //Task 1
 
-
-            var task2 = new Task2();
-            while(true)
+            Console.WriteLine("Enter the Number separated by -");
+            var input = Console.ReadLine();
+            var numbers = new List<int>();
+            bool isConsective=true;
+            foreach(var number in input.Split('-'))
             {
-                Console.WriteLine("Enter  Number or 'OK' to quit");
-                var input = Console.ReadLine();
+                numbers.Add(Convert.ToInt32(number));
                 
-                if(input.ToLower()=="ok")
+            }
+            numbers.Sort();
+            for(int i= 0; i<numbers.Count-1; i++)
+            {
+                if (numbers[i]+1 != numbers[i+1])
                 {
-                    Console.WriteLine("Exit");
+                    isConsective = false;
                     break;
                 }
-                else
-                {
-                    task2.Addr(Convert.ToInt32(input));
-                }
             }
+            var message = isConsective ? "consective" : "not consective";
+            Console.WriteLine(message);
 
-
-            Console.WriteLine("Enter the number to find its factorial");
-            var task3 = new Task3(Convert.ToInt64(Console.ReadLine()));
-            task3.factorialCal();
-
-
-            Console.WriteLine("Enter the numbers separated by ,");
-            var task5 = new Task5(Console.ReadLine());
-            task5.findMax();
+            // Task2
+            Task2();
+            Task3();
+            Task4();
+            Task5();
+           
             Console.ReadLine();
         }
+        
      
     }
 }
