@@ -4,144 +4,98 @@ using System.IO;
 using System.Text;
 
 namespace test
-        
+    
+       
 {
+   
+    public class StopWatch
+    {
+        public DateTime startTime;
+        public DateTime endTime;
+        public string hours;
+        public string minutes;
+        public string seconds;
+
+        public StopWatch()
+        {
+            startTime = new DateTime(0);
+            endTime = new DateTime(0);
+            hours ="0";
+            minutes = "0";
+            seconds = "0";
+        }
+
+        public void Start()
+        {
+           startTime = DateTime.Now;
+            ShowTime();
+           
+        }
+        public void Stop()
+        {
+            endTime = DateTime.Now;
+            DurationCal();
+            ShowTime();
+        }
+        public void DurationCal()
+        {
+            seconds = Convert.ToString(endTime.Second - startTime.Second);
+            minutes = Convert.ToString(endTime.Minute - startTime.Minute);
+            hours = Convert.ToString(endTime.Hour - startTime.Hour);
+        }
+        public void ShowTime()
+        {
+            Console.WriteLine("Hours:{0},Minutes:{1}, Seconds:{2}", this.hours, this.minutes, this.seconds);
+        }
+
+    }
    
     class Program
     {
-        public static void Task2()
-        {
-            Console.WriteLine("Enter the number separated by'-'");
-            var input = Console.ReadLine();
-            if(string.IsNullOrWhiteSpace(input))
-            {
-                Console.WriteLine("No input");
-                return;
-            }
-            
-
-            var uniques = new List<Int32>();
-            bool IsDuplicate = false;
-            foreach( var number in input.Split('-'))
-            {
-                if (!uniques.Contains(Convert.ToInt32(number)))
-                {
-                    uniques.Add(Convert.ToInt32(number));
-                }
-                else
-                {
-                    IsDuplicate = true;
-                }
-            }
-            if(IsDuplicate)
-            {
-                Console.WriteLine("DUplicates");
-            }
-            else
-            {
-                Console.WriteLine("Uniques");
-            }
-
-        }
-        public static void Task3()
-        {
-            Console.WriteLine("Enter the time");
-            var input = Console.ReadLine();
-            if(string.IsNullOrWhiteSpace(input))
-            {
-                Console.WriteLine("Invalid Time");
-                return;
-            }
-            var time = input.Split(':');
-            if(time.Length != 2)
-            {
-                Console.WriteLine("Invalid");
-                return;
-            }
-            try
-            {
-                var hours = Convert.ToInt32(time[0]);
-                var minutes = Convert.ToInt32(time[1]);
-                if(hours <=23 && hours>=0 && minutes >= 0 && minutes <= 59)
-                {
-                    Console.WriteLine("Ok");
-                }
-                else
-                {
-                    Console.WriteLine("Invalid");
-                }
-            }
-            catch (Exception)
-            {
-
-                Console.WriteLine("Invalid");
-            }
-
-        }
-        public static void Task4()
-        {
-            Console.WriteLine("Enter words separated by space");
-            var input = Console.ReadLine();
-
-            if(string.IsNullOrWhiteSpace(input))
-            {
-                Console.WriteLine("Invalid");
-                return;
-            }
-            var variable = "";
-            foreach(var words in input.Split(' '))
-            {
-                var wordWithPascalCase = char.ToUpper(words[0]) + words.ToLower().Substring(1);
-                variable += wordWithPascalCase;
-            }
-            Console.WriteLine(variable);
-        }
-        public static void Task5()
-        {
-            Console.WriteLine("Enter the word");
-            var word = Console.ReadLine().ToLower();
-            var vowels = new List<char>(new char[] { 'a', 'e', 'i', 'o', 'u' });
-            var count = 0;
-            foreach(var letter in word)
-            {
-                if(vowels.Contains(letter))
-                {
-                    count++;
-                }
-            }
-            Console.WriteLine(count);
-        }
+       
         public static void Main()
-        {   
-            //Task 1
-
-            Console.WriteLine("Enter the Number separated by -");
-            var input = Console.ReadLine();
-            var numbers = new List<int>();
-            bool isConsective=true;
-            foreach(var number in input.Split('-'))
+        {
+            var stopWatch = new StopWatch();
+            var check = 0;
+            while(true)
             {
-                numbers.Add(Convert.ToInt32(number));
+                Console.WriteLine("Enter 's' to start and 't' to stop");
+                var choice = Char.Parse(Console.ReadLine());
+
+                switch(choice)
+                {
+                    case 's':
+                        {
+                            if(check==0)
+                            {
+                                stopWatch.Start();
+                                check = check + 1;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Cant start twice");
+                            }
+                            break;
+                        }
+                    case 't':
+                        {
+                            stopWatch.Stop();
+                            check = 0;
+                            break;
+                        }
+                    default:
+                        {
+                            Console.WriteLine("Enter the right choice.");
+                            return;
+                        }
+
+                }
+
                 
             }
-            numbers.Sort();
-            for(int i= 0; i<numbers.Count-1; i++)
-            {
-                if (numbers[i]+1 != numbers[i+1])
-                {
-                    isConsective = false;
-                    break;
-                }
-            }
-            var message = isConsective ? "consective" : "not consective";
-            Console.WriteLine(message);
 
-            // Task2
-            Task2();
-            Task3();
-            Task4();
-            Task5();
-           
+
+            
             Console.ReadLine();
         }
         
