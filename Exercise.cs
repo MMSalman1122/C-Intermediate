@@ -5,50 +5,43 @@ using System.Text;
 
 namespace test
     
-{
-    public class Customer
+{public class Vehicle
     {
-        public int Id { get; set; }
-        public int Name { get; set; }
-
-        public void Promote()
+        private readonly string _registrationNumber;
+        public Vehicle()
         {
-            var rating = CalculateRating(excludeOrders: true);
-
-            if(rating==0)
-            {
-                Console.WriteLine("Promoted to lvl 1");
-            }
-            else
-            {
-                Console.WriteLine("Promoted to lvl 2");
-            }
+            Console.WriteLine("Vehicle is initialized.");   
         }
-        private int CalculateRating(bool excludeOrders)
+        public Vehicle(string registrationNumber)
         {
-            return 0;
-        }
-        protected int CalculateRating2(bool excludeOrders)
-        {
-            return 0;
+            _registrationNumber = registrationNumber;
+            Console.WriteLine("Contrctor of base class with parameter");
         }
     }
-    public class GoldCustomer: Customer
+    public class Car: Vehicle
     {
-        public void OfferVoucher()
+        
+
+        public Car()
+    
         {
-            this.CalculateRating2(excludeOrders: false);
+            Console.WriteLine("Car is being initialzed.");
+
         }
+        public Car(string regNumber)
+            :base(regNumber)
+        {
+            Console.WriteLine("Contrctor of derived class with parameter");
+        }
+        
     }
-   
         class Program
         {
 
             public static void Main()
             {
-                var customer = new Customer();
-                
-
+            var car = new Car();
+            var car2 = new Car("lol");
                 Console.ReadLine();
             }
 
