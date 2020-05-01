@@ -1,0 +1,10 @@
+Briefing:
+C#
+Section 4 
+Lecture 20-23 complete + 1 exercise of section 3 
+Time of course today: 33 min
+Course status:23/45 lec 51% complete 
+
+ASP.NET
+Leture 1 complete(Introduction)
+Time of course today: 5 min
