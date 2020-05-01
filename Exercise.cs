@@ -7,94 +7,84 @@ namespace test
     
        
 {
-   
-    public class StopWatch
+   public class Post
     {
-        public DateTime startTime;
-        public DateTime endTime;
-        public string hours;
-        public string minutes;
-        public string seconds;
-
-        public StopWatch()
+        private string _title;
+        private string _descripstion;
+        private DateTime _dateCreated ;
+        private int _vote;
+        public Post(string title, string description)
         {
-            startTime = new DateTime(0);
-            endTime = new DateTime(0);
-            hours ="0";
-            minutes = "0";
-            seconds = "0";
+            this._title = title;
+            this._descripstion= description;
+            _vote = 0;
+            _dateCreated = DateTime.Now;
+        }
+        public void UpVote()
+        {
+            _vote++;
+        }
+        public void DownVote()
+        {
+            if(_vote>0)
+            {
+                _vote--;
+            }
+        }
+        public int GetVote()
+        {
+            return _vote;
+        }
+        public string GetTitle()
+        {
+            return _title;
+        }
+        public string GetDescription()
+        {
+            return _descripstion;
+        }
+        public DateTime GetDateCreated()
+        {
+            return _dateCreated;
         }
 
-        public void Start()
-        {
-           startTime = DateTime.Now;
-            ShowTime();
-           
-        }
-        public void Stop()
-        {
-            endTime = DateTime.Now;
-            DurationCal();
-            ShowTime();
-        }
-        public void DurationCal()
-        {
-            seconds = Convert.ToString(endTime.Second - startTime.Second);
-            minutes = Convert.ToString(endTime.Minute - startTime.Minute);
-            hours = Convert.ToString(endTime.Hour - startTime.Hour);
-        }
-        public void ShowTime()
-        {
-            Console.WriteLine("Hours:{0},Minutes:{1}, Seconds:{2}", this.hours, this.minutes, this.seconds);
-        }
 
     }
-   
+    
     class Program
     {
        
         public static void Main()
         {
-            var stopWatch = new StopWatch();
-            var check = 0;
-            while(true)
+            Post post = new Post("First Post","This is my first post's desscription.");
+            while (true)
             {
-                Console.WriteLine("Enter 's' to start and 't' to stop");
+                Console.WriteLine("Enter 'u' for up vottnig, 'd' for down-voting and 's' to show");
                 var choice = Char.Parse(Console.ReadLine());
 
-                switch(choice)
+                switch (choice)
                 {
-                    case 's':
+                    case 'u':
                         {
-                            if(check==0)
-                            {
-                                stopWatch.Start();
-                                check = check + 1;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Cant start twice");
-                            }
+                            post.UpVote();
                             break;
                         }
-                    case 't':
+                    case 'd':
                         {
-                            stopWatch.Stop();
-                            check = 0;
+                            post.DownVote();
+                            break;
+                        }
+                    case 's':
+                        {
+                            Console.WriteLine("Title:{0},Created on:{1}, Votes:{2}", post.GetTitle(),post.GetDateCreated(),post.GetVote());
                             break;
                         }
                     default:
                         {
-                            Console.WriteLine("Enter the right choice.");
                             return;
                         }
-
                 }
-
-                
             }
-
-
             
             Console.ReadLine();
         }
