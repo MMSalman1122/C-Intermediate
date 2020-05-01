@@ -5,90 +5,54 @@ using System.Text;
 
 namespace test
     
-       
 {
-   public class Post
+    public class Customer
     {
-        private string _title;
-        private string _descripstion;
-        private DateTime _dateCreated ;
-        private int _vote;
-        public Post(string title, string description)
+        public int Id { get; set; }
+        public int Name { get; set; }
+
+        public void Promote()
         {
-            this._title = title;
-            this._descripstion= description;
-            _vote = 0;
-            _dateCreated = DateTime.Now;
-        }
-        public void UpVote()
-        {
-            _vote++;
-        }
-        public void DownVote()
-        {
-            if(_vote>0)
+            var rating = CalculateRating(excludeOrders: true);
+
+            if(rating==0)
             {
-                _vote--;
+                Console.WriteLine("Promoted to lvl 1");
+            }
+            else
+            {
+                Console.WriteLine("Promoted to lvl 2");
             }
         }
-        public int GetVote()
+        private int CalculateRating(bool excludeOrders)
         {
-            return _vote;
+            return 0;
         }
-        public string GetTitle()
+        protected int CalculateRating2(bool excludeOrders)
         {
-            return _title;
+            return 0;
         }
-        public string GetDescription()
-        {
-            return _descripstion;
-        }
-        public DateTime GetDateCreated()
-        {
-            return _dateCreated;
-        }
-
-
     }
+    public class GoldCustomer: Customer
+    {
+        public void OfferVoucher()
+        {
+            this.CalculateRating2(excludeOrders: false);
+        }
+    }
+   
+        class Program
+        {
+
+            public static void Main()
+            {
+                var customer = new Customer();
+                
+
+                Console.ReadLine();
+            }
+
+
+        }
     
-    class Program
-    {
-       
-        public static void Main()
-        {
-            Post post = new Post("First Post","This is my first post's desscription.");
-            while (true)
-            {
-                Console.WriteLine("Enter 'u' for up vottnig, 'd' for down-voting and 's' to show");
-                var choice = Char.Parse(Console.ReadLine());
-
-                switch (choice)
-                {
-                    case 'u':
-                        {
-                            post.UpVote();
-                            break;
-                        }
-                    case 'd':
-                        {
-                            post.DownVote();
-                            break;
-                        }
-                    case 's':
-                        {
-                            Console.WriteLine("Title:{0},Created on:{1}, Votes:{2}", post.GetTitle(),post.GetDateCreated(),post.GetVote());
-                            break;
-                        }
-                    default:
-                        {
-                            return;
-                        }
-                }
-            }
-            
-            Console.ReadLine();
-        }
-        
-     
-    }
 }
