@@ -1,51 +1,58 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 namespace test
-    
-{public class Vehicle
+{
+    public class Shape
     {
-        private readonly string _registrationNumber;
-        public Vehicle()
+        public int Height { get; set; }
+        public int Width { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
+
+        public void Draw()
         {
-            Console.WriteLine("Vehicle is initialized.");   
-        }
-        public Vehicle(string registrationNumber)
-        {
-            _registrationNumber = registrationNumber;
-            Console.WriteLine("Contrctor of base class with parameter");
+
         }
     }
-    public class Car: Vehicle
+    public class Text: Shape
     {
-        
+        public int FontSize { get; set; }
+        public int FontName { get; set; }
 
-        public Car()
-    
-        {
-            Console.WriteLine("Car is being initialzed.");
-
-        }
-        public Car(string regNumber)
-            :base(regNumber)
-        {
-            Console.WriteLine("Contrctor of derived class with parameter");
-        }
-        
     }
-        class Program
+    class Program
+    {
+
+        public static void Main()
         {
-
-            public static void Main()
-            {
-            var car = new Car();
-            var car2 = new Car("lol");
-                Console.ReadLine();
-            }
+            Text text = new Text();
+            Shape shape = text;
 
 
+            text.Width = 200;
+            shape.Width = 100;// overwrites the value of text.wdth
+            Console.WriteLine(text.Width);
+
+            // StreamReader reader = new StreamReader(new MemoryStream());
+            ArrayList list = new ArrayList();
+            list.Add(1);
+            list.Add("lol");
+            list.Add(new Text());
+            // down cast
+            Shape shap = new Text();
+            // in shap. attributes of text are available
+
+            Text textt = (Text)shap;
+            // in textt. every property is available
+
+            Console.ReadLine();
         }
-    
+
+
+    }
+
 }
