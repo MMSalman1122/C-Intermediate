@@ -3,4 +3,4 @@ C#
 Section 5 
 Lecture 23-31 complete
 Time of course today: 76 min
-Course status:23/45 lec 68% complete 
+Course status:23/45 lec 68% complete.
