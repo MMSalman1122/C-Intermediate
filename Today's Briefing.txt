@@ -1,6 +1,6 @@
 Briefing:
 C#
-Section 5 
-Lecture 23-31 complete
-Time of course today: 76 min
-Course status:23/45 lec 68% complete.
+Section 6 + 1 exercise
+Lecture 33-39 complete
+Time of course today: 69 min
+Course status:45/45 lec 100% complete.
