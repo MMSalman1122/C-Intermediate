@@ -1,6 +1,2 @@
 Briefing:
-C#
-Section 6 + 1 exercise
-Lecture 33-39 complete
-Time of course today: 69 min
-Course status:45/45 lec 100% complete.
+Asp.Net Core course 1-10 lectures completed
