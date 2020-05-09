@@ -6,85 +6,70 @@ using System.Text;
 
 namespace test
 {
-    public class BookList
+    public class Photo
     {
-        public void Add(Book book)
+        public static Photo Load(String path)
         {
-            throw new NotImplementedException();
-
+            return new Photo();
         }
-        public Book this[int index]
-        {
-            get { throw new NotImplementedException(); }
-        }
-    }
-    public class list
-    {
-        public void add(int number)
-        {
-            throw new NotImplementedException();
-        }
-        public int this[int index]
-        {
-            get { throw new NotImplementedException(); }
-        }
-    }
-    public class GenericList<T> //templete or type
-    {
-        public void Add(T value)
-        {
-
-        }
-        public T this[int index]
-        {
-            get { throw new NotImplementedException(); }
-        }
-    }
-    public class Book
-    {
-        
-        public Book()
-        {
-                
-        }
-    }
-    public class GenericDictionary<TKey,TValue>
-    {
-        public void Add(TKey key, TValue value)
+        public void Save()
         {
 
         }
     }
-    // for constraints
-    // where T : Product
-    // where T : struct
-    // where T : class
-    // where T : new()
-    public class Utilities<T> where T : IComparable
+    public class PhotoFilters
     {
-        public int Max(int a, int b )
+        public void ApplyBrightness(Photo photo)
         {
-            return a > b ? a : b;
+            Console.WriteLine("Apply Brightness");
         }
-        public T Max<T> (T a, T b) 
+        public void ApplyContrast(Photo photo)
         {
+            Console.WriteLine("Apply Contrast");
+        }
+        public void Resize(Photo photo)
+        {
+            Console.WriteLine("Resize photo");
+        }
+    }
+    public class PhotoProcessor
+    {
+        public delegate void PhotoFilterHandler(Photo photo);
+        public void Process(string path, PhotoFilterHandler filterHandler)
+        {
+            var photo = Photo.Load(path);
+            filterHandler(photo);
             
-            return a.CompareTo(b)> 0 ? a : b;
+            photo.Save();
+            
+            
         }
     }
+        
     class Program
     {
         static void Main(string[] args)
         {
-            var number = new GenericList<int>();
-            number.Add(10);
+            var processor = new PhotoProcessor();
+            var filter = new PhotoFilters();
+            PhotoProcessor.PhotoFilterHandler filterHandler = filter.ApplyBrightness;
 
-            var books = new GenericList<Book>();
-            books.Add(new Book());
+            filterHandler += filter.ApplyContrast;
+            //add to deligate
+            filterHandler += RemoveRedEyerFilter;
 
-            var dictionary = new GenericDictionary<string, Book>();
-            dictionary.Add("1234",new Book());
+            processor.Process("dhajhdjska", filterHandler);
+            
+           
+
+            Console.ReadLine();
+        }
+        // create own filter
+        static void RemoveRedEyerFilter(Photo photo)
+        {
+            Console.WriteLine("Red eye ");
         }
     }
+
 
 }
