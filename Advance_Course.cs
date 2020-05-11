@@ -3,44 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace test
 {
-    public class BookRepository
-    {
-        public List<Book> GetBooks()
-        {
-            return new List<Book>
-            {
-                new Book() {Title="Title 1",Price=5 },
-                new Book() {Title="Title 2",Price=7 },
-                new Book() {Title="Title 3",Price=17 },
-            };
-        }
-    }
-    public class Book
+    public class video
     {
         public string Title { get; set; }
-        public int Price { get; set; }
     }
-    
-        
+    public class VideoEncoder
+    {
+        public void Encode(video video)
+        {
+            Console.WriteLine("Encoding video");
+            Thread.Sleep(1000);
+        }
+    }   
+            
     class Program
     {
         static void Main(string[] args)
         {
-            var books = new BookRepository().GetBooks();
-           var cheapBooks= books.FindAll(IsCheaper);
-            foreach (var book in cheapBooks)
-            {
-                Console.WriteLine(book.Title);
-            }
+            var video = new video() { Title = "video 1" };
+            var videoEncoder = new VideoEncoder();
+            videoEncoder.Encode(video);
             Console.ReadLine();
         }
-        static bool IsCheaper(Book book)
-        {
-            return book.Price < 10;
-        }
+        
        
     }
 
