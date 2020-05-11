@@ -1,5 +1,5 @@
 Briefing:
 Asp.Net Core course 10-15 lectures completed
 C# advance:
-Section 2 : Lecture 6-8 
-Time of course: 47 min
+Section 2 : Lecture 8-10
+Time of course: 58 min
