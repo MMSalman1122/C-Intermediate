@@ -9,38 +9,58 @@ using System.Threading;
 namespace test
 {
     //Extension methods
-    public static class StringExtensions
+    public class Book
     {
-        public static string Shorten(this string str, int numberOfWords)
-        {
-            if (numberOfWords < 0)
-                throw new ArgumentOutOfRangeException("negative number of words");
-
-            if (numberOfWords == 0)
-                return "";
-            var words = str.Split(' ');
-            if (words.Length <= numberOfWords)
-                return str;
-
-            return string.Join(" ", words.Take(numberOfWords)) + "...";
-        }
+        public string Title { get; set; }
+        public float Price { get; set; }
     }
 
-
+    public class BookRepository
+    {
+        public IEnumerable<Book>GetBooks()
+        {
+            return new List<Book>
+            {
+                new Book(){Title= "Add.Net step by step", Price=5 },
+                new Book(){Title= "ASP.Net mvc", Price=9.99f },
+                new Book(){Title= "Add.Net WEb", Price=12 },
+                new Book(){Title= "C# Advance", Price=7 },
+                new Book(){Title= "step by step", Price=9 }
+            };
+                
+        }
+    }
 
     class Program
     {
         static void Main(string[] args)
         {
-            string post = "THis is a long long  d s jkjdaljdk jsalkjdjklj string";
-            var shortendPost = post.Shorten(5);
+            var books = new BookRepository().GetBooks();
+            //Linq Query Operators
+            var cheaperBooks = from b in books
+                               where b.Price < 10
+                               orderby b.Title
+                               select b.Title;
 
-            Console.WriteLine(shortendPost);
+            //Linq extension methods
+            var cheapBooks = books
+                                    .Where(b => b.Price < 10)
+                                    .OrderBy(b=> b.Title)
+                                    .Select(b => b.Title);
 
 
-            IEnumerable<int> numbers = new List<int>() {1,2,3,4,5,6 };
-            var max= numbers.Max();
-            Console.WriteLine(max);
+            foreach (var book in cheapBooks)
+            {
+                 Console.WriteLine(book);
+            }
+
+            //for single return
+            var book1 = books.Single(b => b.Title == "step by step");
+            Console.WriteLine(book1.Price);
+            //for count
+            var count = books.Count();
+            Console.WriteLine(count);
+
             Console.ReadLine();
         }
         
