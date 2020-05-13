@@ -11,18 +11,16 @@ namespace test
     
     class Program
     {
-        static void Main(string[] args)
+        static void  Main(string[] args)
         {
-            DateTime? date = null;
-            Console.WriteLine("GetValue"+date.GetValueOrDefault());
-            Console.WriteLine("HasValue" + date.HasValue);
-            //Console.WriteLine("Value" + date.Value);
+            dynamic a = 10;
+            dynamic b = 5;
 
+            var c = a+b;
 
-            DateTime? date2= new DateTime(2014, 1, 1);
-            DateTime date3 = date2.GetValueOrDefault();
-
-            Console.WriteLine(date3);
+            int i = 5;
+            dynamic d = i;
+            long l = d;
 
             Console.ReadLine();
         }
