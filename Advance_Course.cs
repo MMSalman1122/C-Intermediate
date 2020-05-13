@@ -13,15 +13,21 @@ namespace test
     {
         static void  Main(string[] args)
         {
-            dynamic a = 10;
-            dynamic b = 5;
+            var streamReader = new StreamReader(@"c:\file.zip");
 
-            var c = a+b;
+            try
+            {
+                var content = streamReader.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
 
-            int i = 5;
-            dynamic d = i;
-            long l = d;
-
+                Console.WriteLine("Sorry, an unexpacted error occured");
+            }
+            finally
+            {
+                streamReader.Dispose();
+            }
             Console.ReadLine();
         }
         
