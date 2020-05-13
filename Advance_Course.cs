@@ -2,65 +2,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
 namespace test
 {
-    public class video
+    //Extension methods
+    public static class StringExtensions
     {
-        public string Title { get; set; }
-    }
-    public class VideoEncoder
-    {
-        //Publish that an event is occuring
-        //1 define deligat
-        //2. define event
-        //3.Rais the event
-
-        public delegate void VideoEncoderEventHandler(object source, EventArgs args);
-        public event VideoEncoderEventHandler VideoEncoded;
-
-
-        public void Encode(video video)
+        public static string Shorten(this string str, int numberOfWords)
         {
-            Console.WriteLine("Encoding video");
-            Thread.Sleep(1000);
+            if (numberOfWords < 0)
+                throw new ArgumentOutOfRangeException("negative number of words");
 
-            OnVideoEncoded();
-        }
-        public virtual void OnVideoEncoded()
-        {
-            if (VideoEncoded != null)
-                VideoEncoded(this, EventArgs.Empty);
-        }
-    } 
-    public class MailService
-    {
-        public void OnvideoEncoded(Object source,EventArgs e)
-        {
-            Console.WriteLine("sending email");
+            if (numberOfWords == 0)
+                return "";
+            var words = str.Split(' ');
+            if (words.Length <= numberOfWords)
+                return str;
+
+            return string.Join(" ", words.Take(numberOfWords)) + "...";
         }
     }
-            
+
+
+
     class Program
     {
         static void Main(string[] args)
         {
-            var video = new video() { Title = "video 1" };
-            var videoEncoder = new VideoEncoder();//publisher
-            var mailservice = new MailService();//subscriber
+            string post = "THis is a long long  d s jkjdaljdk jsalkjdjklj string";
+            var shortendPost = post.Shorten(5);
 
-            videoEncoder.VideoEncoded += mailservice.OnvideoEncoded;
-
+            Console.WriteLine(shortendPost);
 
 
-            videoEncoder.Encode(video);
+            IEnumerable<int> numbers = new List<int>() {1,2,3,4,5,6 };
+            var max= numbers.Max();
+            Console.WriteLine(max);
             Console.ReadLine();
         }
         
        
     }
-
+    
 
 }
